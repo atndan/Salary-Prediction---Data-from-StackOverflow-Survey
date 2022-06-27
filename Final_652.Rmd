@@ -1,0 +1,184 @@
+---
+title: Final Project - Dan Hoang - Cu2107
+output:
+  pdf_document: default
+  html_document: default
+---
+
+
+```{r}
+library(tidyverse)
+library(randomForest)
+library(rpart)
+library(vip)
+```
+
+```{r}
+stack_overflow <- readRDS(url("https://ericwfox.github.io/data/stack_overflow.rds"))
+```
+
+
+# 1.  Exploratory Data Analysis
+
+```{r}
+ggplot(stack_overflow, aes(x=factor(company_size_number), y=salary)) +
+  geom_boxplot() +
+  labs(x="Company size", y="Salary (in $1000's)")
+```
+
+Here we can see a positive relationship between company_size_number and Salary, which mean the bigger the company is, the higher the salary is in average.
+
+```{r}
+
+```
+
+
+```{r}
+ggplot(stack_overflow, aes(x=factor(country), y=salary)) +
+  geom_boxplot() +
+  labs(x="Country", y="Salary (in $1000's)")
+```
+
+From the plot, the salary is significantly different between countries, US is the highest salary group, while Canada, Germany and UK are pretty equal.  
+
+
+```{r}
+ggplot(stack_overflow, aes(x=factor(hobby), y=salary)) +
+  geom_boxplot() +
+  labs(x="hobby", y="Salary (in $1000's)")
+```
+
+It is interesting that there is not much different in salary between group that they code as hobby with group that they do not code as hobby. 
+
+
+# 2. Cross-Validation.
+
+
+## a.
+
+*Randomly split the stack_overflow data set in a 70% training and 30% test set. Make sure to use set.seed() so that your results are reproducible.*
+
+
+```{r}
+set.seed(12)
+n <- nrow(stack_overflow)
+index_training <- sample(1:n, round(0.7*n))
+training_data <- stack_overflow[index_training, ]
+test_data <- stack_overflow[-index_training, ]
+
+```
+
+
+## b.
+
+```{r}
+lm1 <- lm(salary ~ ., data = training_data)
+step1 <- step(lm1, trace = F)
+summary(step1)
+```
+
+```{r}
+length(coef(step1))
+```
+
+
+```{r}
+vip(step1, num_features = 21, geom = "point", include_type = TRUE)
+```
+
+The importance plot gives a ranking of the predictors in the model,  the most important variable is years_coded_job, and the least important variable is remote. 
+
+## c. 
+
+```{r}
+tree1 <- rpart(salary ~ ., data = training_data, method = "anova")
+par(cex=0.7, xpd=NA)
+plot(tree1)
+text(tree1, use.n = TRUE, pretty = 0)
+```
+
+## d. 
+
+```{r}
+rf1 <- randomForest(salary ~ ., data = training_data, importance = TRUE)
+rf1
+
+```
+
+```{r}
+vip(rf1, num_features = 21, geom = "point", include_type = TRUE)
+```
+
+## e.
+
+```{r}
+# function to compute RMSE and R square
+RMSE <- function(y, y_hat) {sqrt(mean((y-y_hat)^2))} 
+R2 <- function(actual, predicted) {
+  1 - (sum((actual-predicted)^2)/sum((actual-mean(actual))^2))}
+```
+
+```{r}
+pred1 <- predict(step1, newdata = test_data)
+pred2 <- predict(tree1, newdata = test_data)
+pred3 <- predict(rf1, newdata = test_data)
+RMSE1  <- RMSE(test_data$salary, pred1)
+RMSE2  <- RMSE(test_data$salary, pred2)
+RMSE3  <- RMSE(test_data$salary, pred3)
+R_square1 <- R2(test_data$salary, pred1)
+R_square2 <- R2(test_data$salary, pred2)
+R_square3 <- R2(test_data$salary, pred3)
+data.frame(model = c("Multi Linear","Regression Tree", "Random Forest"), 
+           RMSE = c(RMSE1,RMSE2, RMSE3), 
+           R_square = c(R_square1, R_square2, R_square3))
+```
+
+From the summary table, Random Forest model has the smallest RMSE, and the highest R_square 67.8%. In terms of predictive performance, Random Forest is the best performance model.
+
+In terms of interpretability, Regression Tree is the best modelfor interpret since it has only 4 nodes and 6 leafs in the model and RSME is just slightly higher than Random Forest. 
+
+## d.
+
+```{r}
+pred_table <- data.frame(
+  Actual = test_data$salary, 
+  pred1,
+  pred2,
+  pred3
+) 
+```
+
+
+```{r}
+library(patchwork)
+p1 <- ggplot(pred_table, aes(x = Actual, y = pred1)) +
+      geom_point(alpha = 0.5, size = 0.8) +
+      geom_abline(intercept = 0, slope = 1) +
+      xlab("Salary") + ylab("Predicted Salary") +
+      ggtitle("Multi Linear Regression") 
+
+p2 <- ggplot(pred_table, aes(x = Actual, y = pred2)) +
+      geom_point(alpha = 0.5, size = 0.8) +
+      geom_abline(intercept = 0, slope = 1) +
+      xlab("Salary") + ylab("Predicted Salary") +
+      ggtitle("Regression Tree") 
+  
+
+p3 <- ggplot(pred_table, aes(x = Actual, y = pred3)) +
+      geom_point(alpha = 0.5, size = 0.8) +
+      geom_abline(intercept = 0, slope = 1) +
+      xlab("Salary") + ylab("Predicted Salary") +
+      ggtitle("Random Forest") 
+  
+
+p1+p2+p3
+```
+
+The reason that the patterns for the regression tree model look different than the other models is due to the outputs of the model, predicted value of regression tree resulted in the mean of the group that has the highest probability, the outputs are discrete instead of continuous.  
+
+
+
+
+
+
+
