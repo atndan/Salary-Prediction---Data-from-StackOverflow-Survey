@@ -174,7 +174,7 @@ p3 <- ggplot(pred_table, aes(x = Actual, y = pred3)) +
 p1+p2+p3
 ```
 
-The reason that the patterns for the regression tree model look different than the other models is due to the outputs of the model, predicted value of regression tree resulted in the mean of the group that has the highest probability, the outputs are discrete instead of continuous.  
+The reason that the patterns for the regression tree model look different than the other models is due to the outputs of the model, predicted value of regression tree resulted in the mean of the group that has the highest probability, the outputs are discrete instead of continuous..
 
 
 
