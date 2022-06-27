@@ -7,18 +7,23 @@ For this project the data is get from the Stack Overflow Developer Survey1, whic
 
 Starting by exploring the data a little. explore the association between salary and some of the predictors. Since many of the predictors are qualitative, or on a discrete scale, box plots are useful for visualization.
 
-<img width="700" alt="image" src="https://user-images.githubusercontent.com/91353356/176011419-0dc3128a-2a10-40d6-92a0-41ad99c4d960.png">
 
 Here we can see a positive relationship between company_size_number and Salary, which mean the bigger
 the company is, the higher the salary is in average.
 
-<img width="682" alt="image" src="https://user-images.githubusercontent.com/91353356/176011862-1b36c9ef-dcfd-477a-a064-0204b6653458.png">
+<img width="700" alt="image" src="https://user-images.githubusercontent.com/91353356/176011419-0dc3128a-2a10-40d6-92a0-41ad99c4d960.png">
+
+
 From the plot, the salary is significantly different between countries, US is the highest salary group, while
 Canada, Germany and UK are pretty equal.
 
-<img width="715" alt="image" src="https://user-images.githubusercontent.com/91353356/176011932-09358b70-7af5-4bf6-8ddb-9af4b9fbfade.png">
+<img width="682" alt="image" src="https://user-images.githubusercontent.com/91353356/176011862-1b36c9ef-dcfd-477a-a064-0204b6653458.png">
+
 It is interesting that there is not much different in salary between group that they code as hobby with group
 that they do not code as hobby.
+
+<img width="715" alt="image" src="https://user-images.githubusercontent.com/91353356/176011932-09358b70-7af5-4bf6-8ddb-9af4b9fbfade.png">
+
 
 ## Cross-Validation
 
