@@ -1,8 +1,6 @@
 ---
 title: Final Project - Dan Hoang - Cu2107
-output:
-  pdf_document: default
-  html_document: default
+output: rmarkdown::github_document
 ---
 
 
