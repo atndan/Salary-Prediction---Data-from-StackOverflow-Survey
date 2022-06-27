@@ -33,6 +33,8 @@ The stack_overflow dataset is randomly splited into a 70% training and 30% test 
 The importance plot gives a ranking of the predictors in the model, the most important variable is
 years_coded_job, and the least important variable is remote.
 
+
+
 **Regression Tree**
 
 <img width="659" alt="image" src="https://user-images.githubusercontent.com/91353356/176012701-9d7209b1-aeb4-4fc3-9b44-c6f3486fe316.png">
@@ -40,12 +42,15 @@ years_coded_job, and the least important variable is remote.
 
 **RSME & R_square** 
 
+
+
+<img width="943" alt="image" src="https://user-images.githubusercontent.com/91353356/176013804-cbe3f76a-5e2e-4727-8fe5-22b9470cfba2.png">
+
 From the summary table, Random Forest model has the smallest RMSE, and the highest R_square 67.8%.
 In terms of predictive performance, Random Forest is the best performance model.
 In terms of interpretability, Regression Tree is the best modelfor interpret since it has only 4 nodes and 6
 leafs in the model and RSME is just slightly higher than Random Forest.
 
-<img width="943" alt="image" src="https://user-images.githubusercontent.com/91353356/176013804-cbe3f76a-5e2e-4727-8fe5-22b9470cfba2.png">
 
 <img width="749" alt="image" src="https://user-images.githubusercontent.com/91353356/176013984-5f7ea967-fa83-46cd-9521-b196be05ceab.png">
 
