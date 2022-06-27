@@ -48,8 +48,7 @@ years_coded_job, and the least important variable is remote.
 
 From the summary table, Random Forest model has the smallest RMSE, and the highest R_square 67.8%.
 In terms of predictive performance, Random Forest is the best performance model.
-In terms of interpretability, Regression Tree is the best modelfor interpret since it has only 4 nodes and 6
-leafs in the model and RSME is just slightly higher than Random Forest.
+In terms of interpretability, Regression Tree is the best modelfor interpret since it has only 4 nodes and 6 leafs in the model and RSME is just slightly higher than Random Forest.
 
 
 <img width="749" alt="image" src="https://user-images.githubusercontent.com/91353356/176013984-5f7ea967-fa83-46cd-9521-b196be05ceab.png">
