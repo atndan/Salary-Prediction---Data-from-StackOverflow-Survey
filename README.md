@@ -49,7 +49,7 @@ years_coded_job, and the least important variable is remote.
 
 
 
-<img width="943" alt="image" src="https://user-images.githubusercontent.com/91353356/176013804-cbe3f76a-5e2e-4727-8fe5-22b9470cfba2.png">
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/91353356/176013804-cbe3f76a-5e2e-4727-8fe5-22b9470cfba2.png">
 
 From the summary table, Random Forest model has the smallest RMSE, and the highest R_square 67.8%.
 In terms of predictive performance, Random Forest is the best performance model.
